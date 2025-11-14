@@ -1,0 +1,71 @@
+.item {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: box-shadow 0.2s;
+}
+
+.item:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.taskText {
+  font-size: 1.125rem;
+  color: #1f2937;
+}
+
+.taskTextCompleted {
+  text-decoration: line-through;
+  color: #6b7280;
+}
+
+.badge {
+  margin-left: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badgeCompleted {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.badgePending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.deleteButton {
+  margin-left: 1rem;
+  background: #ef4444;
+  color: white;
+  font-weight: 700;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.deleteButton:hover {
+  background: #dc2626;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.deleteButton:active {
+  transform: scale(0.95);
+}
+
