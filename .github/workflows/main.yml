@@ -1,0 +1,26 @@
+name: Pipeline CI/CD
+# definição de quando pipeline será disparado
+on: 
+  push: 
+    branches:
+        -main
+jobs: 
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+
+       - name: checkout do codigo
+         uses: actions/checkout@v5
+
+       - name: instalação do node
+         uses: actions/setup-node@v4
+  
+        with:
+          node-version: '20'
+          
+        - name: Instalação das Dependencias
+          run: npm install
+        - name: Rodar build 
+          run: npm run build
+        - name: Rodar testes
+          run: npm test
