@@ -1,22 +1,25 @@
-name: Pipeline CI/CD
-# definição de quando pipeline será disparado
+name:  CI/CD
 on: 
-  push: 
-    branches:
-        -main
-jobs: 
+   push:
+        branches:
+        - main      
+        workflow_dispatch:  #habilitar o botão do "RUn workflow" no Github Actions
+
+         
+jobs:
   check-bats-version:
     runs-on: ubuntu-latest
     steps:
+
+      - name: Checkout do código
+      - uses: actions/checkout@v5
+
       - name: Instalação do Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
-          cache-dependency-path: package-lock.json
+          node-version: '20'
 
-      - name: Instalação das dependências
-        run: npm install
-
+      - name: Instlação das Depêndecias
+      - run: npm install 
       - name: Rodar o build
-        run: npm run build
+      - run: npm run build
