@@ -1,64 +1,59 @@
 name: Pipeline CI/CD
-on: 
-   push:
-        branches:
-        - main   
-        paths: 
-        - "src/**"
-        - ".github/workflows/**"
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - ".github/workflows/**"
 jobs:
-  check-bats-version:
+  # Primeiro Job: "build" (alterado o nome para ser mais claro e usado na dependência)
+  build:
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout do código
-      - uses: actions/checkout@v5
+        uses: actions/checkout@v5 # Este uses: precisa estar alinhado com o - name:
 
       - name: Instalação do Node
-      - uses: actions/setup-node@v4
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: "npm"
           cache-dependency-path: package-lock.json
 
-      - name: Instlação das Depêndecias
-      - run: npm install 
+      - name: Instalação das Dependências # Corrigido "Depêndecias"
+        run: npm install
+
       - name: Rodar o build
-      - run: npm run build
+        run: npm run build
 
- tests: 
-         runs-on: ubuntu-latest
-         needs: build
+  # Segundo Job: "tests" (agora no mesmo nível de indentação que "build")
+  tests:
+    runs-on: ubuntu-latest
+    needs: build # needs deve estar no mesmo nível que runs-on
 
-         steps:
-
+    steps: # steps deve estar no mesmo nível que runs-on
       - name: Checkout do código
-      - uses: actions/checkout@v5
+        uses: actions/checkout@v5
 
       - name: Instalação do Node
-      - uses: actions/setup-node@v4
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: "npm"
           cache-dependency-path: package-lock.json
 
-      - name: Instlação das Depêndecias
-      - run: npm install 
-      
+      - name: Instalação das Dependências
+        run: npm install
+
       - name: Rodar o lint
-      - run: npm run lint
+        run: npm run lint
 
       - name: Verificar formatação
-        run : npm run format-- --check
-      
+        run: npm run format -- --check # Corrigido o espaço e o comando
+
       - name: Rodar testes
-        run : npm run test
-
-
-      
-
-
-
+        run: npm run test
 
 
 
