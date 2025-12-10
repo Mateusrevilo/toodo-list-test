@@ -5,6 +5,8 @@ on:
       - main
     paths:
       - "src/**"
+      - "app/**"
+      - "components/**"
       - ".github/workflows/**"
 jobs:
   # Primeiro Job: "build" (alterado o nome para ser mais claro e usado na dependência)
