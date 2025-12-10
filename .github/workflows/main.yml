@@ -2,10 +2,10 @@ name: Pipeline CI/CD
 on: 
    push:
         branches:
-        - main      
-        workflow_dispatch:  #habilitar o botão do "RUn workflow" no Github Actions
-
-         
+        - main   
+        paths: 
+        - "src/**"
+        - ".github/workflows/**"
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
@@ -18,8 +18,48 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: "npm"
+          cache-dependency-path: package-lock.json
 
       - name: Instlação das Depêndecias
       - run: npm install 
       - name: Rodar o build
       - run: npm run build
+
+ tests: 
+         runs-on: ubuntu-latest
+         needs: build
+
+         steps:
+
+      - name: Checkout do código
+      - uses: actions/checkout@v5
+
+      - name: Instalação do Node
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: "npm"
+          cache-dependency-path: package-lock.json
+
+      - name: Instlação das Depêndecias
+      - run: npm install 
+      
+      - name: Rodar o lint
+      - run: npm run lint
+
+      - name: Verificar formatação
+        run : npm run format-- --check
+      
+      - name: Rodar testes
+        run : npm run test
+
+
+      
+
+
+
+
+
+
+      
