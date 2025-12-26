@@ -52,7 +52,7 @@ jobs:
         run: npm run lint
 
       - name: Verificar formatação 
-        run: npm run format  . --check # Corrigido o espaço e o comando
+        run: npm run format  -- --check # Corrigido o espaço e o comando
 
       - name: Rodar testes
         run: npm run test
