@@ -51,8 +51,8 @@ jobs:
       - name: Rodar o lint
         run: npm run lint
 
-      - name: Verificar formatação
-        run: npm run format -- --check # Corrigido o espaço e o comando
+      - name: Verificar formatação 
+        run: npm run format  . --check # Corrigido o espaço e o comando
 
       - name: Rodar testes
         run: npm run test
