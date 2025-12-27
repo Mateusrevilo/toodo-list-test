@@ -32,7 +32,8 @@ export default function TodoApp({ initialTasks = [] }: Props) {
       <div className={styles.header}>
         <h1 className={styles.title}>Lista de Tarefas</h1>
         <p className={styles.counter}>
-          Total de Tarefas: <span className={styles.counterNumber}>{totalDeTarefas}</span>
+          Total de Tarefas:{" "}
+          <span className={styles.counterNumber}>{totalDeTarefas}</span>
         </p>
       </div>
       <FormTask aoEnviar={addTask} />
@@ -40,4 +41,3 @@ export default function TodoApp({ initialTasks = [] }: Props) {
     </div>
   );
 }
-

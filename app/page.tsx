@@ -1,5 +1,5 @@
 import TodoApp from "./components/TodoApp";
-import { Tarefa } from "./types/Tarefa"
+import { Tarefa } from "./types/Tarefa";
 
 // Simular carregamento de dados no servidor
 async function getTarefas(): Promise<Tarefa[]> {

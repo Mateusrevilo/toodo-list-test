@@ -16,7 +16,9 @@ describe("TodoApp", () => {
   it("deve renderizar o heading e contador", () => {
     render(<TodoApp initialTasks={mockTasks} />);
 
-    expect(screen.getByRole("heading", { name: /Lista de Tarefas/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /Lista de Tarefas/i }),
+    ).toBeInTheDocument();
     expect(getCounter()).toHaveTextContent(/Total de Tarefas:\s*2/);
   });
 
@@ -61,4 +63,3 @@ describe("TodoApp", () => {
     });
   });
 });
-

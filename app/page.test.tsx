@@ -1,4 +1,3 @@
-
 import { render, screen } from "@testing-library/react";
 import Page from "./page";
 
@@ -6,8 +5,10 @@ describe("Page - Server Component", () => {
   it("deve renderizar o heading corretamente", async () => {
     const PageComponent = await Page();
     render(PageComponent);
-    
-    expect(screen.getByRole("heading", { name: /Lista de Tarefas/i })).toBeInTheDocument();
+
+    expect(
+      screen.getByRole("heading", { name: /Lista de Tarefas/i }),
+    ).toBeInTheDocument();
   });
 
   it("deve carregar e renderizar tarefas iniciais", async () => {

@@ -1,23 +1,23 @@
-import js from '@eslint/js';
-import globals from 'globals';
-import react from 'eslint-plugin-react';
-import tseslint from 'typescript-eslint';
+import js from "@eslint/js";
+import globals from "globals";
+import react from "eslint-plugin-react";
+import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   {
     ignores: [
-      'node_modules/**',
-      '.next/**',
-      'out/**',
-      'build/**',
-      'dist/**',
-      'next-env.d.ts',
-      'jest.config.js',
-      'jest.setup.js',
+      "node_modules/**",
+      ".next/**",
+      "out/**",
+      "build/**",
+      "dist/**",
+      "next-env.d.ts",
+      "jest.config.js",
+      "jest.setup.js",
     ],
   },
   {
-    files: ['**/*.{js,jsx,ts,tsx}'],
+    files: ["**/*.{js,jsx,ts,tsx}"],
     languageOptions: {
       ecmaVersion: 2022,
       globals: {
@@ -36,17 +36,16 @@ export default tseslint.config(
     },
     settings: {
       react: {
-        version: 'detect',
+        version: "detect",
       },
     },
     rules: {
       ...js.configs.recommended.rules,
       ...react.configs.recommended.rules,
-      ...react.configs['jsx-runtime'].rules,
-      'react/react-in-jsx-scope': 'off',
-      'react/prop-types': 'off',
+      ...react.configs["jsx-runtime"].rules,
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
     },
   },
   ...tseslint.configs.recommended,
 );
-
