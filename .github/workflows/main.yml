@@ -75,7 +75,19 @@ jobs:
         run: npm install -g vercel@latest
 
       - name: Deploy pra Vercel
-        run: vercel --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
+        run: |
+          # Se VERCEL_PROJECT_ID não estiver configurado, cria o projeto automaticamente
+          if [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "Criando novo projeto no Vercel..."
+            vercel deploy --prod --yes --token=$VERCEL_TOKEN
+          else
+            echo "Fazendo deploy do projeto existente: $VERCEL_PROJECT_ID"
+            vercel deploy --prod --yes --token=$VERCEL_TOKEN || {
+              echo "Projeto não encontrado. Criando novo projeto..."
+              unset VERCEL_PROJECT_ID
+              vercel deploy --prod --yes --token=$VERCEL_TOKEN
+            }
+          fi
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
