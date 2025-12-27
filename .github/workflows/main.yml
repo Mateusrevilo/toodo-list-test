@@ -75,6 +75,7 @@ jobs:
         run: npm install -g vercel@latest
 
       - name: Vincular projeto Vercel
+        continue-on-error: true
         run: |
           # Se VERCEL_PROJECT_ID estiver configurado, tenta vincular o projeto
           if [ -n "$VERCEL_PROJECT_ID" ] && [ -n "$VERCEL_ORG_ID" ]; then
