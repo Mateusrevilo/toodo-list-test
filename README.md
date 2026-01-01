@@ -4,7 +4,7 @@ Uma aplicação moderna de lista de tarefas (Todo List) construída com Next.js 
 
 ## 🌐 Aplicação em Produção
 
-**🔗 Acesse a aplicação:** [https://toodo-list-test-octft2b5f-mateus-silvas-projects-43255478.vercel.app](https://toodo-list-test-octft2b5f-mateus-silvas-projects-43255478.vercel.app)
+**🔗 Acesse a aplicação:** [https://toodo-list-test-1.vercel.app/](https://toodo-list-test-1.vercel.app/)
 
 A aplicação está hospedada na Vercel e é atualizada automaticamente a cada push para a branch `main`.
 
