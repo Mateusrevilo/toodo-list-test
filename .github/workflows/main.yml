@@ -8,6 +8,8 @@ on:
       - "app/**"
       - "components/**"
       - ".github/workflows/**"
+  workflow_dispatch:
+
 jobs:
   # Primeiro Job: "build" (alterado o nome para ser mais claro e usado na dependência)
   build:
@@ -51,6 +53,9 @@ jobs:
 
       - name: Rodar o lint
         run: npm run lint
+
+      - name: Verificar formatação (Prettier)
+        run: npx prettier . --check
 
       - name: Rodar testes
         run: npm run test
