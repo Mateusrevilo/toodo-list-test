@@ -8,6 +8,9 @@ on:
       - "app/**"
       - "components/**"
       - ".github/workflows/**"
+  workflow_dispatch:
+
+      
 jobs:
   # Primeiro Job: "build" (alterado o nome para ser mais claro e usado na dependência)
   build:
@@ -52,6 +55,9 @@ jobs:
       - name: Rodar o lint
         run: npm run lint
 
+      - name: Verificar formatação (Prettier)
+        run: npx prettier . --check
+
       - name: Rodar testes
         run: npm run test
 
@@ -74,34 +80,11 @@ jobs:
       - name: Instalar Vercel CLI
         run: npm install -g vercel@latest
 
-      - name: Vincular projeto Vercel
-        id: vercel-link
-        continue-on-error: true
-        run: |
-          # Se VERCEL_PROJECT_ID estiver configurado, tenta vincular o projeto
-          if [ -n "$VERCEL_PROJECT_ID" ] && [ -n "$VERCEL_ORG_ID" ]; then
-            echo "Vinculando projeto existente: $VERCEL_PROJECT_ID"
-            vercel link --yes --token=$VERCEL_TOKEN --project=$VERCEL_PROJECT_ID --scope=$VERCEL_ORG_ID && {
-              echo "linked=true" >> $GITHUB_OUTPUT
-              echo "✅ Projeto vinculado com sucesso"
-            } || {
-              echo "linked=false" >> $GITHUB_OUTPUT
-              echo "⚠️ Não foi possível vincular o projeto. Será criado um novo projeto no deploy."
-            }
-          else
-            echo "linked=false" >> $GITHUB_OUTPUT
-            echo "VERCEL_PROJECT_ID não configurado. Projeto será criado automaticamente no deploy."
-          fi
+      - name: Deploy pra Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: vercel --prod --yes --token=$VERCEL_TOKEN
 
-      - name: Deploy pra Vercel (projeto vinculado)
-        if: steps.vercel-link.outputs.linked == 'true'
-        run: vercel deploy --prod --yes --token=$VERCEL_TOKEN
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-       
+   
