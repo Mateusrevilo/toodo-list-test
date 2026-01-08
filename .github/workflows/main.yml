@@ -55,13 +55,35 @@ jobs:
       - name: Instalar Vercel CLI
         run: npm install -g vercel@latest
 
+      - name: Vincular projeto Vercel
+        id: vercel-link
+        continue-on-error: true
+        run: |
+          # Vincular projeto usando Project ID se disponível
+          if [ -n "${{ secrets.VERCEL_PROJECT_ID }}" ] && [ -n "${{ secrets.VERCEL_ORG_ID }}" ]; then
+            echo "📦 Vinculando projeto Vercel: ${{ secrets.VERCEL_PROJECT_ID }}"
+            vercel link --yes --token="${{ secrets.VERCEL_TOKEN }}" \
+              --project="${{ secrets.VERCEL_PROJECT_ID }}" \
+              --scope="${{ secrets.VERCEL_ORG_ID }}" && {
+              echo "linked=true" >> $GITHUB_OUTPUT
+              echo "✅ Projeto vinculado com sucesso"
+            } || {
+              echo "linked=false" >> $GITHUB_OUTPUT
+              echo "⚠️ Não foi possível vincular projeto. Vercel detectará automaticamente."
+            }
+          else
+            echo "linked=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ VERCEL_PROJECT_ID ou VERCEL_ORG_ID não configurados"
+            echo "ℹ️ Vercel detectará projeto automaticamente baseado no repositório Git"
+          fi
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
       - name: Deploy para Vercel (produção)
         id: deploy
         run: |
-          # O Vercel CLI detecta automaticamente projetos vinculados ao repositório Git
-          # Não precisamos configurar VERCEL_PROJECT_ID ou VERCEL_ORG_ID manualmente
-          # O Vercel usa a integração Git para identificar o projeto correto
           echo "🚀 Fazendo deploy para produção..."
-          echo "ℹ️ Vercel detectará automaticamente o projeto baseado no repositório Git"
           vercel deploy --prod --yes --token="${{ secrets.VERCEL_TOKEN }}"
           echo "✅ Deploy concluído com sucesso!"
